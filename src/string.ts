@@ -1,5 +1,5 @@
-import { isArray, isNumber, isObject, isString, undef } from "./index"
-import type { StringObject, StringOrNumberObject } from './types'
+import { isArray, isNumber, isObject, isString, undef, } from "./index"
+import type { StringObject, UnknownObject, StringOrNumberObject } from './types'
 
 
 // upperCaseFirstLetter
@@ -63,21 +63,25 @@ export function clearWhiteSpace(text: string) {
 
 
 // stupid types, lol
-export function camelToSnakeCase<Type extends string | Array<string> | StringObject>(toRename: Type): Type {
+export function camelToSnakeCase<Type>(toRename: Type): Type {
 	if (isString(toRename))
 		return _camelToSnakeCase(toRename) as Type
-	else if (isArray(toRename))
-		return toRename.map((item) => _camelToSnakeCase(item)) as Type
+	else if (isArray(toRename)) {
+		return toRename.map((item) => camelToSnakeCase(item)) as Type // recursion
+	}
 	else if (isObject(toRename)) {
-		const newObject: StringObject = {} as StringObject
+		const newObject: UnknownObject = {}
 		for (const propertyName in toRename) {
 			const newPropertyName = _camelToSnakeCase(propertyName)
-			newObject[newPropertyName] = toRename[propertyName] as string
+			if (isObject(toRename[propertyName]))
+				newObject[newPropertyName] = camelToSnakeCase(toRename[propertyName]) // recursion
+			else
+				newObject[newPropertyName] = toRename[propertyName]
 		}
 		return newObject as Type
 	}
-	else
-		throw new Error(`ERROR_camelToSnakeCase: unknown type`)
+
+	throw new Error(`ERROR_camelToSnakeCase_1: unknown type`)
 }
 
 
@@ -87,21 +91,25 @@ function _camelToSnakeCase(toRename: string) {
 
 
 // stupid types, lol
-export function snakeToCamelCase<Type extends string | Array<string> | StringObject>(toRename: Type): Type {
+export function snakeToCamelCase<Type>(toRename: Type): Type {
 	if (isString(toRename))
 		return _snakeToCamelCase(toRename) as Type
-	else if (isArray(toRename))
-		return toRename.map((item) => _snakeToCamelCase(item)) as Type
+	else if (isArray(toRename)) {
+		return toRename.map((item) => snakeToCamelCase(item)) as Type // recursion
+	}
 	else if (isObject(toRename)) {
-		const newObject: StringObject = {} as StringObject
+		const newObject: UnknownObject = {}
 		for (const propertyName in toRename) {
 			const newPropertyName = _snakeToCamelCase(propertyName)
-			newObject[newPropertyName] = toRename[propertyName] as string
+			if (isObject(toRename[propertyName]))
+				newObject[newPropertyName] = snakeToCamelCase(toRename[propertyName]) // recursion
+			else
+				newObject[newPropertyName] = toRename[propertyName]
 		}
 		return newObject as Type
 	}
-	else
-		throw new Error(`ERROR_snakeToCamelCase: unknown type`)
+
+	throw new Error(`ERROR_snakeToCamelCase_1: unknown type`)
 }
 
 

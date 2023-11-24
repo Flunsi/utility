@@ -1,6 +1,6 @@
 {
 	"name": "@flunsi/utility",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "Web utility functions for my projects. Use it or get inspired to create your own.",
 	"keywords": [ "javascript", "typescript", "utility", "web", "string", "number", "array" ],
 	"author": "Niklaus Flunser",
