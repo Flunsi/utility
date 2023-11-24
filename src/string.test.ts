@@ -110,14 +110,8 @@ const camelAndSnake = [
 	// object
 	{ camel: { 'abc': 'abc', 'abcDef': 'abcDef', 'abcDefGhi': 'abcDefGhi' }, snake: { 'abc': 'abc', 'abc_def': 'abcDef', 'abc_def_ghi': 'abcDefGhi' } },
 
-	// object of objects
-	{ camel: { 'abcDef': { 'abc': { 'abcDefGhi': 'abcDefGhi' } } }, snake: { 'abc_def': { 'abc': { 'abc_def_ghi': 'abcDefGhi' } } } },
-
 	// array
 	{ camel: ['abc', 'abcDef', 'abcDefGhi'], snake: ['abc', 'abc_def', 'abc_def_ghi'] },
-
-	// array of objects
-	{ camel: [{ 'abc': 'abc' }, { 'abcDef': 'abcDef' }, { 'abcDefGhi': 'abcDefGhi' }], snake: [{ 'abc': 'abc' }, { 'abc_def': 'abcDef' }, { 'abc_def_ghi': 'abcDefGhi' }] },
 ]
 
 

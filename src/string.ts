@@ -1,5 +1,5 @@
 import { isArray, isNumber, isObject, isString, undef } from "./index"
-import type { StringObject, UnknownObject, StringOrNumberObject } from './types'
+import type { StringObject, StringOrNumberObject } from './types'
 
 
 // upperCaseFirstLetter
@@ -62,55 +62,44 @@ export function clearWhiteSpace(text: string) {
 }
 
 
-// warum ist "as Type" nötig? Das ist doch blöd!
-export function camelToSnakeCase<Type extends string | Array<unknown> | UnknownObject | undefined>(toRename: unknown): Type {
+// stupid types, lol
+export function camelToSnakeCase<Type extends string | Array<string> | StringObject>(toRename: Type): Type {
 	if (isString(toRename))
 		return _camelToSnakeCase(toRename) as Type
 	else if (isArray(toRename))
-		return toRename.map((item: unknown) => camelToSnakeCase(item)) as Type // recursion
+		return toRename.map((item) => _camelToSnakeCase(item)) as Type
 	else if (isObject(toRename)) {
-		const newObject: UnknownObject = {}
-		for (const _propertyName in toRename) {
-			const propertyName = _propertyName as keyof typeof toRename
+		const newObject: StringObject = {} as StringObject
+		for (const propertyName in toRename) {
 			const newPropertyName = _camelToSnakeCase(propertyName)
-			if (isObject(toRename[propertyName]))
-				newObject[newPropertyName] = camelToSnakeCase(toRename[propertyName]) // recursion
-			else
-				newObject[newPropertyName] = toRename[propertyName]
+			newObject[newPropertyName] = toRename[propertyName] as string
 		}
 		return newObject as Type
 	}
-	else if (undef(toRename))
-		return undefined as Type
 	else
 		throw new Error(`ERROR_camelToSnakeCase: unknown type`)
 }
 
 
-function _camelToSnakeCase(toRename: string): string {
+function _camelToSnakeCase(toRename: string) {
 	return toRename.replace(/([a-z])([A-Z])/g, "$1_$2").toLowerCase()
 }
 
 
-export function snakeToCamelCase<Type extends string | Array<unknown> | UnknownObject | undefined>(toRename: unknown): Type {
+// stupid types, lol
+export function snakeToCamelCase<Type extends string | Array<string> | StringObject>(toRename: Type): Type {
 	if (isString(toRename))
 		return _snakeToCamelCase(toRename) as Type
 	else if (isArray(toRename))
-		return toRename.map((item: unknown) => snakeToCamelCase(item)) as Type			// recursion
+		return toRename.map((item) => _snakeToCamelCase(item)) as Type
 	else if (isObject(toRename)) {
-		const newObject: UnknownObject = {}
-		for (const _propertyName in toRename) {
-			const propertyName = _propertyName as keyof typeof toRename
+		const newObject: StringObject = {} as StringObject
+		for (const propertyName in toRename) {
 			const newPropertyName = _snakeToCamelCase(propertyName)
-			if (isObject(toRename[propertyName]))
-				newObject[newPropertyName] = snakeToCamelCase(toRename[propertyName])	// recursion
-			else
-				newObject[newPropertyName] = toRename[propertyName]
+			newObject[newPropertyName] = toRename[propertyName] as string
 		}
 		return newObject as Type
 	}
-	else if (undef(toRename))
-		return undefined as Type
 	else
 		throw new Error(`ERROR_snakeToCamelCase: unknown type`)
 }
