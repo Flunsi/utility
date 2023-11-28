@@ -9,3 +9,5 @@ export * from './string'
 export * from './notSoPure/browser'
 export * from './notSoPure/log'
 export * from './notSoPure/time'
+
+export * from './linktest'

@@ -58,6 +58,8 @@ export function replacePlaceholder(text: string, params?: StringOrNumberObject, 
 
 
 export function clearWhiteSpace(text: string) {
+	if (!isString(text))
+		return ''
 	return text.replace(/\s+/g, ' ').trim()
 }
 
