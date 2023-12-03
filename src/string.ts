@@ -36,14 +36,14 @@ export function stringToNumber(stringIn: string | undefined, fallBackValue = 0):
 export function replacePlaceholder(text: string, params?: StringOrNumberObject, throwErrors = true): string {
 	const paramsAsString: StringObject = {}
 	for (const key in params)
-		paramsAsString[key] = isNumber(params[key]) ? params[key].toString() : params[key] as string
+		paramsAsString[key] = isNumber(params[key]) ? params[key].toString() : (params[key] as string)
 
 	// Alle Keys der übergebenen Parameter in einem Set speichern. Wird ein Key verwendet, wird er aus dem Set gelöscht.
-	const unusedParams = new Set<string>(undef(params) ? [] : Object.keys(params))
+	const unusedParams = new Set<string>(!params ? [] : Object.keys(params))
 	const textReplaced = text.replace(/{(\w+)}/g, (match, key) => {
-		if (undef(paramsAsString[key]))
+		if (!paramsAsString[key])
 			if (throwErrors)
-				throw new Error(`ERROR_replacePlaceholder_1: replacePlaceholder: Parameter "${key}" not passed`)
+				throw new Error(`ERROR_replacePlaceholder_1:\ntext: ${text}\nparams: ${JSON.stringify(params)}\nNot passed parameter: ${key}\n`)
 			else
 				return match
 		unusedParams.delete(key)
@@ -51,7 +51,7 @@ export function replacePlaceholder(text: string, params?: StringOrNumberObject, 
 	})
 
 	if (unusedParams.size >= 1 && throwErrors)
-		throw new Error(`ERROR_replacePlaceholder_2: Unused passed parameters: ${Array.from(unusedParams).join(', ')}`)
+		throw new Error(`ERROR_replacePlaceholder_2:\ntext: ${text}\nparams: ${JSON.stringify(params)}\nUnused passed parameters: ${Array.from(unusedParams).join(', ')}`)
 
 	return textReplaced
 }

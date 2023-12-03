@@ -77,6 +77,7 @@ describe('replacePlaceholder', () => {
 		{ text: 'xxx{{field1}}xxx', values: data, expected: 'xxx{ABC}xxx' },
 
 		{ text: 'xxx{field1}xxx{field2}xxx', values: partData, expected: 'xxxABCxxx{field2}xxx' },
+		{ text: 'xxx{field1}xxx{field1}xxx', values: partData, expected: 'xxxABCxxxABCxxx' },
 
 		{ text: 'xxx{field1}xxx{field2}xxx', values: emptyData, expected: 'xxxxxx{field2}xxx' },
 
