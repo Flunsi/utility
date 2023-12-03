@@ -41,7 +41,7 @@ export function replacePlaceholder(text: string, params?: StringOrNumberObject, 
 	// Alle Keys der übergebenen Parameter in einem Set speichern. Wird ein Key verwendet, wird er aus dem Set gelöscht.
 	const unusedParams = new Set<string>(!params ? [] : Object.keys(params))
 	const textReplaced = text.replace(/{(\w+)}/g, (match, key) => {
-		if (!paramsAsString[key])
+		if (undef(paramsAsString[key]))
 			if (throwErrors)
 				throw new Error(`ERROR_replacePlaceholder_1:\ntext: ${text}\nparams: ${JSON.stringify(params)}\nNot passed parameter: ${key}\n`)
 			else
