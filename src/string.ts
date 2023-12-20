@@ -1,5 +1,5 @@
 import { isArray, isNumber, isObject, isString, undef, } from "./index"
-import type { StringObject, UnknownObject, StringOrNumberObject } from './types'
+import type { StringOrNumber, StringObject, UnknownObject, StringOrNumberObject } from './types'
 
 
 // upperCaseFirstLetter
@@ -30,6 +30,8 @@ export function stringToNumber(stringIn: string | undefined, fallBackValue = 0):
 
 	return Number(stringCleaned)
 }
+
+
 /**
  * @example replacePlaceholder('Im {height}cm tall', { height: 182 })
  */
@@ -54,6 +56,19 @@ export function replacePlaceholder(text: string, params?: StringOrNumberObject, 
 		throw new Error(`ERROR_replacePlaceholder_2:\ntext: ${text}\nparams: ${JSON.stringify(params)}\nUnused passed parameters: ${Array.from(unusedParams).join(', ')}`)
 
 	return textReplaced
+}
+
+
+export function replaceFirstPlaceholder(text: string, param: StringOrNumber, throwErrors = true) {
+	if (throwErrors) {
+		const placeholders = text.match(/{.+?}/g)
+		if (!placeholders || placeholders.length !== 1)
+			throw new Error('Expected exactly one placeholder to replace in the text.')
+	}
+
+	const textValue = isNumber(param) ? param.toString() : param
+	const newText = text.replace(/{.+?}/g, textValue)
+	return newText
 }
 
 

@@ -1,5 +1,5 @@
-import { stringToNumber, replacePlaceholder, camelToSnakeCase, snakeToCamelCase, upperCaseFirstLetter, clearWhiteSpace } from './string'
-import type { StringOrNumberObject } from './types'
+import { stringToNumber, replacePlaceholder, replaceFirstPlaceholder, camelToSnakeCase, snakeToCamelCase, upperCaseFirstLetter, clearWhiteSpace } from './string'
+import type { StringOrNumber, StringOrNumberObject } from './types'
 
 
 describe('stringToNumber', () => {
@@ -99,6 +99,19 @@ describe('replacePlaceholder', () => {
 	])('$text  +  values', ({ text, values }) => {
 		expect(() => replacePlaceholder(text, values, true)).toThrow()
 	})
+})
+
+
+describe('replaceFirstPlaceholder', () => {
+	test.each<{ text: string, param: StringOrNumber, expected: string }>([
+		{ text: 'Oh, hi {name}.', param: 'Mark', expected: 'Oh, hi Mark.' },
+		{ text: 'I need {amount} money!', param: 69, expected: 'I need 69 money!' },
+	])('$text  +  $param  =  $expected', ({ text, param, expected }) => {
+		expect(replaceFirstPlaceholder(text, param)).toEqual(expected)
+	})
+
+	test('toThrow1', () => { expect(() => replaceFirstPlaceholder('gogo', 123)).toThrow() })
+	test('toThrow2', () => { expect(() => replaceFirstPlaceholder('{go} {go}', 123)).toThrow() })
 })
 
 
