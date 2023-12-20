@@ -61,6 +61,9 @@ export function replacePlaceholder(text: string, params?: StringOrNumberObject, 
 
 export function replaceFirstPlaceholder(text: string, param: StringOrNumber, throwErrors = true) {
 	if (throwErrors) {
+		if (!isString(param) && !isNumber(param))
+			throw new Error('Expected text to be a string or number.')
+
 		const placeholders = text.match(/{.+?}/g)
 		if (!placeholders || placeholders.length !== 1)
 			throw new Error('Expected exactly one placeholder to replace in the text.')
