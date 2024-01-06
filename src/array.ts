@@ -1,4 +1,4 @@
-import { undef } from './index'
+import { isString, undef } from './index'
 import type { StringOrNumberObject } from './types'
 
 
@@ -32,10 +32,17 @@ export function superSort<Type extends Array<StringOrNumberObject>>(dataArray: T
 	const orderMap = { asc: 1, desc: -1 }
 	const modifiedSortCriteria: Array<[string, number]> = sortCriteria.map(([key, order]) => [key, orderMap[order]])
 
-	const sortedArray = dataArray.sort((a, b) => {
+	const collator = new Intl.Collator(undefined, { numeric: true, sensitivity: 'base' })
+	const sortedArray = dataArray.sort((record1, record2) => {
 		for (const [key, order] of modifiedSortCriteria) {
-			if (a[key] < b[key]) return order * -1
-			if (a[key] > b[key]) return order
+			const value1 = record1[key]
+			const value2 = record2[key]
+			if (isString(value1) && isString(value2)) {
+				const comparison = collator.compare(value1, value2)
+				if (comparison !== 0) return comparison * order
+			}
+			if (value1 < value2) return -1 * order
+			if (value1 > value2) return 1 * order
 		}
 		return 0
 	})

@@ -37,7 +37,7 @@ export class DelayedInvoker {
 	/*****************************************************************************************************/
 	//   Private
 	/*****************************************************************************************************/
-	private timer: NodeJS.Timeout | undefined
+	private timer: number | undefined
 	private fn: (() => void) | undefined
 	private delayMillis: number | undefined
 }
