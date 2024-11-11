@@ -9,7 +9,7 @@ export function undef(para: unknown): para is undefined | null | void {
 // ACHTUNG: def(para) ist nicht das selbe wie: !!para
 //          Unterschied: 0, '', false
 //          Diese Werte sind definiert, also bei def(para) = true
-// eslint-disable-next-line @typescript-eslint/ban-types
+// eslint-disable-next-line
 export function def(para: unknown): para is string | number | boolean | object | symbol | Array<unknown> | Function {
 	return !undef(para)
 }

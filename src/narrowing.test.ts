@@ -82,7 +82,7 @@ describe('isObject', () => {
 		{ param: null, expected: false },
 		{ param: NaN, expected: false },
 		{ param: void 0, expected: false },
-		{ param: () => { 0 }, expected: false },
+		{ param: () => { return 0 }, expected: false },
 	])('$param  =  $expected', ({ param, expected }) => {
 		expect(isObject(param)).toEqual(expected)
 	})
@@ -117,7 +117,7 @@ describe('undef', () => {
 		{ param: 'undefined', expected: false },
 		{ param: [], expected: false },
 		{ param: {}, expected: false },
-		{ param: () => { 0 }, expected: false },
+		{ param: () => { return 0 }, expected: false },
 		{ param: 'undefined', expected: false },
 
 		{ param: undefined, expected: true },
@@ -139,7 +139,7 @@ describe('def', () => {
 		{ param: 'undefined', expected: true },
 		{ param: [], expected: true },
 		{ param: {}, expected: true },
-		{ param: () => { 0 }, expected: true },
+		{ param: () => { return 0 }, expected: true },
 		{ param: 'undefined', expected: true },
 
 		{ param: undefined, expected: false },

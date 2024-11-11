@@ -112,7 +112,7 @@ describe('replaceFirstPlaceholder', () => {
 
 	test('toThrow1', () => { expect(() => replaceFirstPlaceholder('gogo', 123)).toThrow() })
 	test('toThrow2', () => { expect(() => replaceFirstPlaceholder('{go} {go}', 123)).toThrow() })
-	// @ts-ignore
+	// @ts-expect-error: It's not allowed anyway
 	test('toThrow3', () => { expect(() => replaceFirstPlaceholder('{go}', undefined)).toThrow() })
 })
 
