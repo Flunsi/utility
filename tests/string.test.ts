@@ -1,5 +1,5 @@
-import { stringToNumber, replacePlaceholder, replaceFirstPlaceholder, camelToSnakeCase, snakeToCamelCase, upperCaseFirstLetter, clearWhiteSpace } from './string'
-import type { StringOrNumber, StringOrNumberObject } from './types'
+import { stringToNumber, replacePlaceholder, replaceFirstPlaceholder, camelToSnakeCase, snakeToCamelCase, upperCaseFirstLetter, clearWhiteSpace } from '../src/string'
+import type { StringOrNumber, StringOrNumberObject } from '../src/types'
 
 
 describe('stringToNumber', () => {

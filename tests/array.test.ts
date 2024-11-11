@@ -1,4 +1,4 @@
-import { makeItIterable, generateArray, removeDuplicates, superSort } from './array'
+import { makeItIterable, generateArray, removeDuplicates, superSort } from '../src/array'
 
 
 describe('makeItIterable', () => {

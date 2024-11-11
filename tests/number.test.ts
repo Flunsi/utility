@@ -1,4 +1,4 @@
-import { clamp, roundDynamic10, roundDynamic100, calcValueFromPercent } from './number'
+import { clamp, roundDynamic10, roundDynamic100, calcValueFromPercent } from '../src/number'
 
 
 describe('clamp', () => {

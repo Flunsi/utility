@@ -1,4 +1,4 @@
-import { def, undef, isObject, isSimpleObject, isBoolean, isArray, isNumber, isString } from './narrowing'
+import { def, undef, isObject, isSimpleObject, isBoolean, isArray, isNumber, isString } from '../src/narrowing'
 
 //ts
 describe('isNumber', () => {
