@@ -9,5 +9,5 @@ export default defineConfig({
 			'tests/**/*.{test,spec}.{js,ts}',
 		],
 		globals: true,
-	},
+	}
 })
