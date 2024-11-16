@@ -1,7 +1,7 @@
 {
 	"name": "@flunsi/utility",
-	"version": "0.0.11",
-	"description": "Web utility functions for my projects. Use it or get inspired to create your own.",
+	"version": "1.0.0",
+	"description": "Web utility functions for my projects.",
 	"keywords": [
 		"javascript",
 		"typescript",
